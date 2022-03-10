@@ -24,13 +24,6 @@ namespace ContaCorrente.ConsoleApp
 
         public bool Saque(double valorSaque, out bool opcaoValida)
         {
-
-            Movimentacoes movimentacao = new Movimentacoes();
-            movimentacao.valorMovimentacao = valorSaque;
-            movimentacao.debitoOuCredito = "Debito";
-            movimentacoes[posicalAtualExtrato] = movimentacao;
-
-
             if (valorSaque > saldoDaConta + limiteConta)
             {
                 opcaoValida = false;
@@ -42,6 +35,12 @@ namespace ContaCorrente.ConsoleApp
                 {
                     saldoDaConta = saldoDaConta - valorSaque;
                     opcaoValida = true;
+
+                    Movimentacoes movimentacao = new Movimentacoes();
+                    movimentacao.valorMovimentacao = valorSaque;
+                    movimentacao.debitoOuCredito = "Debito";
+                    movimentacoes[posicalAtualExtrato] = movimentacao;
+
                     posicalAtualExtrato++;
                     return opcaoValida;
                 }
@@ -52,6 +51,12 @@ namespace ContaCorrente.ConsoleApp
                     saldoDaConta = 0;
                     limiteConta = limiteConta - valorRest;
                     opcaoValida = true;
+
+                    Movimentacoes movimentacao = new Movimentacoes();
+                    movimentacao.valorMovimentacao = valorSaque;
+                    movimentacao.debitoOuCredito = "Debito";
+                    movimentacoes[posicalAtualExtrato] = movimentacao;
+
                     posicalAtualExtrato++;
                     return opcaoValida;
                 }
@@ -119,6 +124,7 @@ namespace ContaCorrente.ConsoleApp
         public bool TransferirPara(ContaCorrente contaPassada, double valorTransferencia, out bool opcaoValida)
         {
             Movimentacoes movimentacao = new Movimentacoes();
+            Movimentacoes movimentacaoPraOutraConta = new Movimentacoes();
 
             if (valorTransferencia > saldoDaConta + limiteConta)
             {
@@ -139,9 +145,10 @@ namespace ContaCorrente.ConsoleApp
                     movimentacao.debitoOuCredito = "Debito (Transferencia)";
                     movimentacoes[posicalAtualExtrato] = movimentacao;
 
-                    //contaPassada.movimentacoes[contaPassada.posicalAtualExtrato] = movimentacao;
-                    //contaPassada.movimentacoes[contaPassada.posicalAtualExtrato].valorMovimentacao = valorTransferencia;
-                    //contaPassada.movimentacoes[contaPassada.posicalAtualExtrato].debitoOuCredito = "Credito (Transferencia)";
+                    movimentacaoPraOutraConta.valorMovimentacao = valorTransferencia;
+                    movimentacaoPraOutraConta.debitoOuCredito = "Credito (Transferencia)";
+
+                    contaPassada.movimentacoes[contaPassada.posicalAtualExtrato] = movimentacaoPraOutraConta;                 
 
                     posicalAtualExtrato++;
                     return opcaoValida;
@@ -160,9 +167,10 @@ namespace ContaCorrente.ConsoleApp
                     movimentacao.debitoOuCredito = "Debito (Transferencia)";
                     movimentacoes[posicalAtualExtrato] = movimentacao;
 
-                    //conta.movimentacoes[conta.posicalAtualExtrato] = movimentacao;
-                    //conta.movimentacoes[conta.posicalAtualExtrato].valorMovimentacao = valorTransferencia;
-                    //conta.movimentacoes[conta.posicalAtualExtrato].debitoOuCredito = "Credito (Transferencia)";
+                    movimentacaoPraOutraConta.valorMovimentacao = valorTransferencia;
+                    movimentacaoPraOutraConta.debitoOuCredito = "Credito (Transferencia)";
+
+                    contaPassada.movimentacoes[contaPassada.posicalAtualExtrato] = movimentacaoPraOutraConta;
 
                     posicalAtualExtrato++;
                     return opcaoValida;
