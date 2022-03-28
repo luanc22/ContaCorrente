@@ -6,11 +6,12 @@ namespace ContaCorrente.ConsoleApp
     {
         static void Main(string[] args)
         {
+            Funcionario funcionario1 = new Funcionario("Luan");
+
+            funcionario1.Salario = 12000;
+            funcionario1.Aumento(10);
+
             ContaCorrente conta1 = new ContaCorrente();
-            conta1.saldoDaConta = 1000;
-            conta1.idDaConta = 1;
-            conta1.limiteConta = 0;
-            conta1.contaEspecial = false;
             conta1.movimentacoes = new Movimentacoes[10];
 
             bool opcaoValida;
@@ -20,10 +21,6 @@ namespace ContaCorrente.ConsoleApp
             conta1.Deposito(300);
 
             ContaCorrente conta2 = new ContaCorrente();
-            conta2.saldoDaConta = 800;
-            conta2.idDaConta = 2;
-            conta2.limiteConta = 0;
-            conta2.contaEspecial = false;
             conta2.movimentacoes = new Movimentacoes[10];
 
             conta2.Saque(200, out opcaoValida);

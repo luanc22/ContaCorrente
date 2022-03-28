@@ -14,14 +14,27 @@ namespace ContaCorrente.ConsoleApp
 
     public class ContaCorrente
     {
-        public int idDaConta;
-        public double saldoDaConta;
-        public bool contaEspecial;
-        public double limiteConta;
-        public int posicalAtualExtrato = 0;
+        static int idTotal;
+        private int idDaConta;
+
+        private double saldoDaConta;
+        private double limiteConta;
+        
+        private bool contaEspecial;
+        private int posicalAtualExtrato = 0;
 
         public Movimentacoes[] movimentacoes;
 
+        public ContaCorrente()
+        {
+            idTotal++;
+            this.idDaConta = idTotal;
+            this.saldoDaConta = 0;
+            this.limiteConta = 200;
+            this.contaEspecial = false;
+        }
+
+        #region Metodos
         public bool Saque(double valorSaque, out bool opcaoValida)
         {
             if (valorSaque > saldoDaConta + limiteConta)
@@ -177,5 +190,6 @@ namespace ContaCorrente.ConsoleApp
                 }
             }
         }
+        #endregion
     }
 }
